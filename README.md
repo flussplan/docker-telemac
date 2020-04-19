@@ -13,7 +13,8 @@ can be found on the [flussplan Github](https://github.com/flussplan/docker-telem
 
 The image is designed for interactive usage in the shell:
 
-```docker run --rm -it -v ./workdir:/opt/telemac-mascaret/latest/workdir flussplan/telemac
+```
+# docker run --rm -it -v ./workdir:/opt/telemac-mascaret/latest/workdir flussplan/telemac
 ```
 
 As you can see the TELEMAC-MASCARET suite is installed in the folder `/opt/telemac-mascaret/<version>` with a symbolic link being
@@ -26,14 +27,16 @@ The root installation folder is also where the image shell will drop you after s
 
 You can run TELEMAC or MASCARET solvers from there like:
 
-```# cd examples/telemac2d/gouttedo
+```
+# cd examples/telemac2d/gouttedo
 # telemac2d.py t2d_gouttedo.cas --ncsize=4
 ```
 
 Just copy your simulation files into the `workdir` folder on the host machine and run your it inside the Docker container, e.g.
 in a subfolder named `my-simulation` like:
 
-```# cd workdir/my-simulation
+```
+# cd workdir/my-simulation
 # telemac2d.py my-simulation.cas --ncsize=4
 ```
 
@@ -44,7 +47,8 @@ On the host machine you can browse the local folder `workdir/my-simulation` afte
 In the github repository provided above you will find a Docker compose file for easy startup of the image. Just check out the
 repository to start using it immediately as shown here:
 
-```# docker-compose run --rm --service-ports telemac-mascaret
+```
+# docker-compose run --rm --service-ports telemac-mascaret
 ```
 
 This compose file is prepared with an automated mapping of the subfolder `workdir` (as in the `docker run` example above) as well
