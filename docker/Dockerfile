@@ -2,27 +2,17 @@ FROM debian:10-slim
 LABEL maintainer="peter.steiner@flussplan.at"
 
 ARG TELEMAC_MASCARET_VER=v8p1r1
+#ARG TELEMAC_MASCARET_VER=v7p3r1
+#ARG TELEMAC_MASCARET_VER=trunk
+
 ARG TELEMAC_ROOT=/opt/telemac-mascaret
-
-# needs python 2.7 debian packages:
-#ENV TELEMAC_MASCARET_VER=v7p3r1
-
-ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get update && \ 
-    apt-get -o Dpkg::Options::="--force-confold" upgrade -q -y && \
-    apt-get -o Dpkg::Options::="--force-confold" install -q -y \
-        python3 python3-pip libopenmpi-dev openmpi-bin gfortran subversion \
-        libmetis-dev curl apache2 php apache2 libapache2-mod-php && \
-    python3 -m pip install numpy matplotlib scipy
-
 RUN mkdir ${TELEMAC_ROOT}
 
 COPY systel.cfg ${TELEMAC_ROOT}
-COPY setenv.sh ${TELEMAC_ROOT}
-COPY checkout.sh ${TELEMAC_ROOT}
-COPY build.sh ${TELEMAC_ROOT}
-
+COPY *.sh ${TELEMAC_ROOT}/
 RUN chmod +x ${TELEMAC_ROOT}/*.sh
+
+RUN ${TELEMAC_ROOT}/setup.sh
 RUN ${TELEMAC_ROOT}/checkout.sh
 RUN ${TELEMAC_ROOT}/build.sh
 

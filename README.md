@@ -2,9 +2,16 @@
 
 The TELEMAC-MASCARET solver suite is a high-performance Fortran based application for a range of free-surface flow problems.
 
-This image provides a Debian-based precompiled packaging of the latest TELEMAC-MASCARET suite for immediate usage.
+This software is a very powerful toolkit for numeric simulation that can be slightly cumbersome to install depending on the
+host operating system. The runtime might also need some tweaks to the configuration provided in the upstream repository to
+reflect Fortran compiler version and library locations.
 
-It includes Open MPI support for multi-CPU/multi-core parallelization.
+There this image provides a Debian-based precompiled packaging of the latest TELEMAC-MASCARET suite for immediate usage. This
+alleviates the burden to setup TELEMAC-MASCARET and only requires a Docker installation on the workstation to run simulations.
+
+It is built with Open MPI support for immediate multi-CPU/multi-core parallelization. Therefor it is also well prepared for
+HPC cluster operations with some additional tweaking and an orchestration software like Kubernetes to spread the container over
+a group of nodes.
 
 The image is hosted as public [Dockerhub Repository](https://hub.docker.com/repository/docker/flussplan/telemac) and sources
 can be found on the [flussplan Github](https://github.com/flussplan/docker-telemac).
@@ -52,9 +59,9 @@ repository to start using it immediately as shown here:
 ```
 
 This compose file is prepared with an automated mapping of the subfolder `workdir` (as in the `docker run` example above) as well
-as a port mapping for the included web-based file browser running at [http://localhost:8090] for easy access to the examples and docs in the current
-distribution. The compose file also makes sure to map all available CPUs into the docker image for parallelization, please adapt your
-`--ncsize` parameter accordingly.
+as a port mapping for the included web-based file browser running at [http://localhost:8090](http://localhost:8090) for easy access to the
+examples and docs in the current distribution. The compose file also makes sure to map all available CPUs into the docker image for
+parallelization, please adapt your `--ncsize` parameter accordingly.
 
 Note that you can disable the apache service the file browser by passing the environment variable `DISABLE_APACHE=1` to `docker` or `docker-compose`
 if you do not need to browse docs or examples. Since the file browser imposes a slight security risk because the TELEMAC-MASCARET installation
@@ -66,7 +73,12 @@ to prevent access outside of `localhost`.
 While the tag `latest` will provide access to the most current stable TELEMAC-MASCARET, you can also access versions directly with
 the corresponsing TELEMAC-MASCARET Subversion repository tag.
 
-This image started to build against `v8p1r1`, contact the maintainer if you require older versions in Docker format.
+This image was initially built against `v7p3r1`/`v8p1r1` respectively. Please contact the [maintainer](mailto:peter.steiner@flussplan.at) if you
+think the Dockerhub is missing a later update and needs rebuilding.
+
+You can also define `TELEMAC_MASCARET_VER=trunk` in the `Dockerfile` if you fancy a local build against the latest SVN trunk of
+TELEMAC-MASCARET. This kind of build is not provided via the Dockerhub repository though, and needs a checkout of the Github repository
+which includes both the `Dockerfile` and a Docker compose helper in the `docker` subfolder for this kind of local building.
 
 # License
 

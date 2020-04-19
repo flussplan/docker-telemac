@@ -1,0 +1,6 @@
+version: '2.2'
+
+services:
+    sut:
+        build: .
+        entrypoint: [ "/opt/telemac-mascaret/test.sh" ]
