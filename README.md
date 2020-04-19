@@ -72,17 +72,10 @@ host machine if you enable this feature.
 
 # Image tags
 
-While the tag `latest` will provide access to the most current stable TELEMAC-MASCARET, you can also access versions directly with
-the corresponsing TELEMAC-MASCARET Subversion repository tag.
+While the tag `latest` will provide access to the most current building SVN trunk TELEMAC-MASCARET, you can also access stable release versions directly
+with the corresponsing TELEMAC-MASCARET Subversion repository tag.
 
-You can track a major release with `vX-latest`, eg. `v8-latest` to automatically get the latest `v8` patch/revision updates.
-
-This image was initially built against `v7p3r1`/`v8p1r1` respectively. Please contact the [maintainer](mailto:peter.steiner@flussplan.at) if you
-think the Dockerhub is missing a later update and needs rebuilding.
-
-You can also define `TELEMAC_MASCARET_VER=trunk` in the `Dockerfile` if you fancy a local build against the latest SVN trunk of
-TELEMAC-MASCARET. This kind of build is not provided via the Dockerhub repository though, and needs a checkout of the Github repository
-which includes both the `Dockerfile` and a Docker compose helper in the `docker` subfolder for this kind of local building.
+Major releases can be tracked with `vX-latest`, eg. `v8-latest` to automatically get the latest `v8` patch/revision updates.
 
 # Testing and support
 
