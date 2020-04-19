@@ -19,14 +19,21 @@ The image is designed for interactive usage in the shell:
 As you can see the TELEMAC-MASCARET suite is installed in the folder `/opt/telemac-mascaret/<version>` with a symbolic link being
 provided via `/opt/telemac-mascaret/latest` for easy access from the host system.
 
-In the example above a folder named `workdir` is mapped into the `${HOMETEL}` root installation folder.
+In the example above a local folder named `workdir` is mapped into the `${HOMETEL}` root installation folder. This is where you
+can put your simulation files and data for execution and fetch/visualize the results on the host machine if required.
 
-The root folder is also where the image will drop you after startup.
+The root installation folder is also where the image shell will drop you after startup.
 
 You can run TELEMAC or MASCARET solvers from there like:
 
 ```# cd examples/telemac2d/gouttedo
 # telemac2d.py t2d_gouttedo.cas --ncsize=4
+```
+
+Just jump into your `workdir` to run your own simulations:
+
+```# cd workdir/my-simulation
+# telemac2d.py my-simulation.cas --ncsize=4
 ```
 
 # Docker compose file
@@ -39,9 +46,13 @@ repository to start using it immediately as shown here:
 
 This compose file is prepared with an automated mapping of the subfolder `workdir` (as in the `docker run` example above) as well
 as a port mapping for the included web-based file browser running at [http://localhost:8090] for easy access to the examples and docs in the current
-distribution.
+distribution. The compose file also makes sure to map all available CPUs into the docker image for parallelization, please adapt your
+`--ncsize` parameter accordingly.
 
-Note that you can disable the apache service the file browser by passing the environment variable `DISABLE_APACHE=1` to `docker` or `docker-compose`. 
+Note that you can disable the apache service the file browser by passing the environment variable `DISABLE_APACHE=1` to `docker` or `docker-compose`
+if you do not need to browse docs or examples. Since the file browser imposes a slight security risk because the TELEMAC-MASCARET installation
+files are accessible in read/write manner there the mapped port `8090` should not be accessible on the public interface of the host machine
+to prevent access outside of `localhost`. 
 
 # Image tags
 
