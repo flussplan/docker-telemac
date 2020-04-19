@@ -5,7 +5,7 @@ source ${TELEMAC_ROOT}/setenv.sh
 mkdir ${HOMETEL}
 ln -s ${HOMETEL} ${TELEMAC_ROOT}/latest
 
-if [[ $TELEMAC_MAJOR_VER == "trunk"  ]]; then
+if [[ $TELEMAC_MASCARET_VER == "trunk"  ]]; then
     TELEMAC_SVN_PATH="http://svn.opentelemac.org/svn/opentelemac/trunk"
 else
     TELEMAC_SVN_PATH="http://svn.opentelemac.org/svn/opentelemac/tags/${TELEMAC_MASCARET_VER}"

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [[ "$DISABLE_APACHE" != "1" ]]; then
+if [[ "$ENABLE_WEB_BROWSER" == "1" ]]; then
     service apache2 start
 fi
 

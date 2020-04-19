@@ -1,9 +1,7 @@
 FROM debian:10-slim
 LABEL maintainer="peter.steiner@flussplan.at"
 
-ARG TELEMAC_MASCARET_VER=v8p1r1
-#ARG TELEMAC_MASCARET_VER=v7p3r1
-#ARG TELEMAC_MASCARET_VER=trunk
+ARG TELEMAC_MASCARET_VER=trunk
 
 ARG TELEMAC_ROOT=/opt/telemac-mascaret
 RUN mkdir ${TELEMAC_ROOT}

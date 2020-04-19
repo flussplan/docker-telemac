@@ -3,4 +3,9 @@
 source ${TELEMAC_ROOT}/setenv.sh
 
 config.py
-compile_telemac.py
+
+if [[ $TELEMAC_MAJOR_VER == "v7"  ]]; then
+    compileTELEMAC.py
+else
+    compile_telemac.py
+fi

@@ -3,10 +3,16 @@ version: '2.2'
 services:
     telemac-mascaret:
         image: flussplan/telemac
-        ports:
-            - 8090:80
         volumes:
             - ./workdir:/opt/telemac-mascaret/latest/workdir
         stdin_open: true
         tty: true
         cpu_count: 0
+
+        # Enabled the following options to access the distribution files (examples, docs, etc.)
+        # via https://localhost:8090
+        
+        #environment:
+        #    ENABLE_WEB_BROWSER: 1
+        #ports:
+        #    - 8090:80
