@@ -1,0 +1,26 @@
+name: Weekly SVN trunk rebuild
+
+# run once a week midnight
+on:
+  schedule:
+    - cron:  '0 0 * * 0'
+      
+jobs:
+  bumprev:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: ${{ github.head_ref }}
+
+    # Runs a single command using the runners shell
+    - name: Get latest SVN revision
+      run: |
+        svn info http://svn.opentelemac.org/svn/opentelemac/ --username ot-svn-public --password 'telemac1*' --no-auth-cache | grep 'Last Changed Rev' | awk '{ print $4; }' \
+             > $GITHUB_WORKSPACE/docker/.svn-trunk-revision 
+
+    - uses: stefanzweifel/git-auto-commit-action@v4.1.3
+      with:
+        commit_message: Bump SVN trunk revision
+        branch: ${{ github.head_ref }}
