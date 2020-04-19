@@ -1,4 +1,5 @@
 FROM debian:10-slim
+LABEL maintainer="peter.steiner@flussplan.at"
 
 ARG TELEMAC_MASCARET_VER=v8p1r1
 ARG TELEMAC_ROOT=/opt/telemac-mascaret
@@ -21,9 +22,9 @@ COPY setenv.sh ${TELEMAC_ROOT}
 COPY checkout.sh ${TELEMAC_ROOT}
 COPY build.sh ${TELEMAC_ROOT}
 
+RUN chmod +x ${TELEMAC_ROOT}/*.sh
 RUN ${TELEMAC_ROOT}/checkout.sh
 RUN ${TELEMAC_ROOT}/build.sh
-
 
 COPY apache.conf /etc/apache2/sites-available/000-default.conf
 

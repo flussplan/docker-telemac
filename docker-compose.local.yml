@@ -2,7 +2,7 @@ version: '2.2'
 
 services:
     telemac-mascaret:
-        image: flussplan/telemac
+        build: docker
         ports:
             - 8090:80
         volumes:
