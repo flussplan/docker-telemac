@@ -1,7 +1,7 @@
 #!/bin/bash -ev
 
-export HOMETEL="/${TELEMAC_ROOT}/${TELEMAC_MASCARET_VER}"
-export SYSTELCFG="/${TELEMAC_ROOT}/systel.cfg"
+export HOMETEL="${TELEMAC_ROOT}/${TELEMAC_MASCARET_VER}"
+export SYSTELCFG="${TELEMAC_ROOT}/systel.cfg"
 export USETELCFG="debgfopenmpi"
 export PATH="${HOMETEL}/scripts/python3:${PATH}"
 export PYTHONUNBUFFERED="true"
