@@ -30,11 +30,14 @@ You can run TELEMAC or MASCARET solvers from there like:
 # telemac2d.py t2d_gouttedo.cas --ncsize=4
 ```
 
-Just jump into your `workdir` to run your own simulations:
+Just copy your simulation files into the `workdir` folder on the host machine and run your it inside the Docker container, e.g.
+in a subfolder named `my-simulation` like:
 
 ```# cd workdir/my-simulation
 # telemac2d.py my-simulation.cas --ncsize=4
 ```
+
+On the host machine you can browse the local folder `workdir/my-simulation` after the simulation has finished to check the results.  
 
 # Docker compose file
 
