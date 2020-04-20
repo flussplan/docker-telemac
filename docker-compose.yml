@@ -2,14 +2,18 @@ version: '2.2'
 
 services:
     telemac-mascaret:
-        image: flussplan/telemac
-        volumes:
-            - ./workdir:/opt/telemac-mascaret/latest/workdir
+        image: flussplan/telemac:v8-latest
         stdin_open: true
         tty: true
         cpu_count: 0
+        volumes:
+            - ./workdir:/opt/telemac-mascaret/latest/workdir
 
-        # Enabled the following options to access the distribution files (examples, docs, etc.)
+        # Optionally pass in a custom configuration file mounting like this:
+
+            #- ./workdir/my-systel.cfg:/opt/telemac-mascaret/systel.cfg
+
+        # Enable the following options to access the distribution files (examples, docs, etc.)
         # via https://localhost:8090
         
         #environment:
