@@ -1,5 +1,7 @@
 #!/bin/bash -ev
 
+echo "Checking out TELEMAC-MASCARET source..."
+
 source ${TELEMAC_ROOT}/setenv.sh
 
 mkdir ${HOMETEL}
@@ -13,3 +15,5 @@ fi
 
 svn co ${TELEMAC_SVN_PATH} ${HOMETEL} \
     --username ot-svn-public --password 'telemac1*' --no-auth-cache
+
+echo "Finished $0"
