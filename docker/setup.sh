@@ -73,4 +73,8 @@ make install
 cd ..
 rm -rf ${MED_REL}
 
+# FIXME
+# AED latest?
+# GOTM
+
 echo "Finished $0"
