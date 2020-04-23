@@ -8,12 +8,13 @@ RUN mkdir ${TELEMAC_ROOT}
 
 ARG TELEMAC_TARGET="openmpi"
 
-COPY systel.cfg ${TELEMAC_ROOT}
 COPY *.sh ${TELEMAC_ROOT}/
 RUN chmod +x ${TELEMAC_ROOT}/*.sh
 
 RUN ${TELEMAC_ROOT}/setup.sh
 RUN ${TELEMAC_ROOT}/checkout.sh
+
+COPY systel.cfg ${TELEMAC_ROOT}
 RUN ${TELEMAC_ROOT}/build.sh
 
 COPY entrypoint.sh /entrypoint.sh
