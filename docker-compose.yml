@@ -12,11 +12,3 @@ services:
         # Optionally pass in a custom configuration file mounting like this:
 
             #- ./workdir/my-systel.cfg:/opt/telemac-mascaret/systel.cfg
-
-        # Enable the following options to access the distribution files (examples, docs, etc.)
-        # via https://localhost:8090
-        
-        #environment:
-        #    ENABLE_WEB_BROWSER: 1
-        #ports:
-        #    - 8090:80
