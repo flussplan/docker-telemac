@@ -7,7 +7,7 @@ This software is a very powerful toolkit for numeric simulation that can be slig
 host operating system. The runtime might also need some tweaks to the configuration provided in the upstream repository to
 reflect Fortran compiler version and library locations.
 
-This image provides a Debian-based precompiled packaging of the latest TELEMAC-MASCARET suite for immediate usage. This
+This image provides a Debian-based precompiled packaging of the latest TELEMAC-MASCARET suitable for immediate usage. This
 alleviates the burden to setup TELEMAC-MASCARET and only requires a [Docker installation](https://docs.docker.com/get-docker/)
 on the workstation/server and an Intel VT-x or AMD-V enabled CPU to run simulations practically at bare metal performance.
 
@@ -23,7 +23,7 @@ build sources can be found on the [flussplan Github](https://github.com/flusspla
 The image is designed for interactive usage in the shell. It can be launched like follows directly with the Docker CLI:
 
 ```
-# docker run --rm -it -v ./workdir:/opt/telemac-mascaret/latest/workdir flussplan/telemac:v8-latest
+docker run --rm -it -v ./workdir:/opt/telemac-mascaret/latest/workdir flussplan/telemac:v8-latest
 ```
 
 The TELEMAC-MASCARET suite is installed in the folder `/opt/telemac-mascaret/<version>` with a symbolic link being provided
@@ -37,16 +37,16 @@ The root installation folder is also where the image shell will drop you after s
 You can run TELEMAC or MASCARET solvers from there like:
 
 ```
-# cd examples/telemac2d/gouttedo
-# telemac2d.py t2d_gouttedo.cas --ncsize=4
+cd examples/telemac2d/gouttedo
+telemac2d.py t2d_gouttedo.cas --ncsize=4
 ```
 
 Just copy your simulation files into the `workdir` folder on the host machine and run your it inside the Docker container, e.g.
 in a subfolder named `my-simulation` like:
 
 ```
-# cd workdir/my-simulation
-# telemac2d.py my-simulation.cas --ncsize=4
+cd workdir/my-simulation
+telemac2d.py my-simulation.cas --ncsize=4
 ```
 
 On the host machine you can browse the local folder `workdir/my-simulation` after the simulation has finished to check the results.  
@@ -57,7 +57,9 @@ In the github repository provided above you will find a Docker compose file for 
 release and refer to the top-level folder `docker-compose.yml` to start using the image immediately as shown here:
 
 ```
-# docker-compose run --rm telemac-mascaret
+git clone https://github.com/flussplan/docker-telemac.git
+cd docker-telemac
+docker-compose run --rm telemac-mascaret
 ```
 
 This compose file is prepared with an automated mapping of the subfolder `workdir` (as in the `docker run` example above).
@@ -69,33 +71,13 @@ accordingly.
 While the tag `trunk` will provide access to the most recent building SVN trunk TELEMAC-MASCARET, you can also access stable release versions directly
 with the corresponsing TELEMAC-MASCARET Subversion repository tag like `v8p1r1`.
 
-Major releases can be tracked with `vX-latest`, eg. `v8-latest` to automatically get the latest `v8` patch/revision updates. This enables easy
+Major releases can be tracked with `vX-latest`, eg. use `v8-latest` to automatically get the latest `v8` patch/revision updates. This enables easy
 automatic upgrades of TELEMAC-MASCARET while simulation files are retained in the `workdir` volume folder accross versions.
-
-# Built-in file browser
-
-The image also includes an optional built-in web-based file browser serving the current distribution for easy access to the examples and docs. You can
-enable the Apache serving the file browser by passing the environment variable `ENABLE_WEB_BROWSER=1` to `docker` or `docker-compose` and mapping the
-container port `80` to a host port.
-
-```
-# docker run --rm -it -v ./workdir:/opt/telemac-mascaret/latest/workdir -p 8090:80 -e ENABLE_WEB_BROWSER=1 flussplan/telemac
-```
-
-With this setup access the TELEMAC-MASCARET distribution files simply by opening the file browser running at [http://localhost:8090](http://localhost:8090)
-from the host system.
-
-You will find the necessary Docker compose configuration commented out in the provided file, just uncomment there to enable it if you are using
-Docker compose. Start the container as follows afterwards (notice the `--service-ports` parameter):
-
-```
-# docker-compose run --rm --service-ports telemac-mascaret
-```
 
 # Custom configuration file
 
-The container is equipped with a TELEMAC-MASCARET configuration configured and optimized for the Debian environment. You can run the container with a custom
-configuration file by mounting it into /opt/telemac-mascaret/systel.cfg in the Docker startup command or Docker compose file:
+The container is equipped with a TELEMAC-MASCARET Open MPI configuration configured and optimized for the Debian environment. You can run the container
+with a custom configuration file by mounting it into /opt/telemac-mascaret/systel.cfg in the Docker startup command or Docker compose file:
 
 ```
 # docker run --rm -it -v ./workdir:/opt/telemac-mascaret/latest/workdir -v ./workdir/my-systel.cfg:/opt/telemac-mascaret/systel.cfg flussplan/telemac:v8-latest
@@ -104,22 +86,22 @@ configuration file by mounting it into /opt/telemac-mascaret/systel.cfg in the D
 See the [included configuration file](https://github.com/flussplan/docker-telemac/blob/master/docker/systel.cfg) for a baseline that works well with the
 Debian environment of the container.
 
-# Switching compiler targets
+# Debug compiler target
 
-The image is built with the `debgfopenmpi` target included in the configuration described above for optimal performance. If you would like to run a different
-build and/or target (e.g. compiled with debug flags) you will have to rebuild the Docker image locally.
-
-Download the corresponding release and customize the `systel.cfg` and `setenv.sh` files in the `docker` subfolder before building your own image variant:
+The image is built with the optimized `openmpi` target for ideal runtime performance. It also includes an `openmpidbg` target that allows you to debug TELEMAC-MASCARET
+binaries. This requires you to rebuild the Docker image locally with a build arg/environment override like:
 
 ```
-# curl -L https://github.com/flussplan/docker-telemac/archive/v8p1r1.tar.gz | tar xz
-# cd docker-telemac-8p1r1/docker
-# ... Edit setenv.sh (USETELCFG) or systel.cfg file
-# docker-compose build
-# docker-compose run --rm telemac-mascaret
+services:
+    telemac-mascaret:
+        ...
+        args:
+            USETELCFG=openmpidbg
+        env:
+            USETELCFG=openmpidbg
 ```
 
-Notice that the `docker` subfolder of the repository contains the source `Dockerfile`, necessary auxiliary files, and a different Docker compose file prepared
+The `docker` subfolder of the Github repository contains the source `Dockerfile`, necessary auxiliary files, and a different Docker compose file prepared
 for local building and running of an image.
 
 # Development
@@ -147,8 +129,7 @@ not properly execute this basic example the image will not be pushed into the re
 
 # License and disclaimer
 
-This packaging is provided "as is" and without warranty of any kind by [flussplan e.U.](http://www.flussplan.at) under the GNU GPL Version 3 license,
-as is TELEMAC-MASCARET itself.
+This packaging is provided "as is" and without warranty of any kind by [flussplan e.U.](http://www.flussplan.at) under the GNU GPL Version 3 license.
 
 See the `LICENSE.txt` in the repository for details.
 
@@ -156,3 +137,9 @@ Disclaimer: this is not an official project by TELEMAC-MASCARET, which is manage
 Sogreah, France), Bundesanstalt für Wasserbau (BAW, Germany), Centre d’Etudes et d'Expertise sur les Risques, l'Environnement, la Mobilité et l'Aménagement
 (CEREMA, France), Daresbury Laboratory (United Kingdom), Electricité de France R&D (EDF, France), and HR Wallingford (United Kingdom). See their
 [website](http://www.opentelemac.org/) for more information about TELEMAC-MASCARET.
+
+Includes additional download/build instructions for:
+
+* [METIS](http://glaros.dtc.umn.edu/gkhome/metis/metis/overview) (Apache License, Version 2.0)
+* [HDF5](https://support.hdfgroup.org/HDF5/) (Copyright (c) 2006-2018, The HDF Group, All rights reserved. See included `LICENSE.hdf5`)
+* [MED](https://www.salome-platform.org/user-section/about/med) (GNU GPL Version 3)
