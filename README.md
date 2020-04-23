@@ -12,8 +12,14 @@ alleviates the burden to setup TELEMAC-MASCARET and only requires a [Docker inst
 on the workstation/server and an Intel VT-x or AMD-V enabled CPU to run simulations practically at bare metal performance.
 
 It is built with Open MPI support for immediate multi-CPU/multi-core parallelization. Therefor it is also well prepared for
-HPC cluster operations with some additional tweaking and an orchestration software like Kubernetes to spread the container over
-a group of nodes.
+HPC cluster operations with some additional host discovery tweaking and an orchestration software like Kubernetes to spread
+the image in multiple containers over a group of nodes.
+
+The package includes custom builds for:
+
+* [METIS](http://glaros.dtc.umn.edu/gkhome/metis/metis/overview)
+* [HDF5](https://support.hdfgroup.org/HDF5/)
+* [MED](https://www.salome-platform.org/user-section/about/med)
 
 The image is hosted as public [Dockerhub Repository](https://hub.docker.com/repository/docker/flussplan/telemac) and Docker
 build sources can be found on the [flussplan Github](https://github.com/flussplan/docker-telemac).
@@ -118,14 +124,11 @@ data during restarts to avoid loosing your modifications.
 
 Just make sure to also modify the rest of the environment accordingly (see `/opt/telemac-mascaret/setenv.sh`).
 
-# Support and testing
+# Support
 
 Please get in touch with the TELEMAC-MASCARET [community forum](http://www.opentelemac.org/index.php/kunena) for assistance with the solver
 suite. Feel free to report image issues directly in the [Github issue tracker](https://github.com/flussplan/docker-telemac/issues) if you are
 certain they are related to Docker packaging specifically.
-
-Note that the automated pipelines run the `examples/telemac2d/gouttedo` example to verify the build. If upstream TELEMAC-MASCARET versions do
-not properly execute this basic example the image will not be pushed into the repository. This might delay the automated SVN trunk builds.
 
 # License and disclaimer
 
