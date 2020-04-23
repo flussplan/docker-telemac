@@ -3,8 +3,6 @@ version: '2.2'
 services:
     telemac-mascaret:
         build: .
-        ports:
-            - 8090:80
         volumes:
             - ./workdir:/opt/telemac-mascaret/latest/workdir
         stdin_open: true
