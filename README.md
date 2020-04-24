@@ -80,6 +80,14 @@ with the corresponsing TELEMAC-MASCARET Subversion repository tag like `v8p1r1`.
 Major releases can be tracked with `vX-latest`, eg. use `v8-latest` to automatically get the latest `v8` patch/revision updates. This enables easy
 automatic upgrades of TELEMAC-MASCARET while simulation files are retained in the `workdir` volume folder accross versions.
 
+# Docker configuration
+
+Please refer to the official documentation on how to setup Docker on [Windows](https://docs.docker.com/docker-for-windows/install/),
+[Mac](https://docs.docker.com/docker-for-mac/) or via Linux package manager according to your needs. This is a prerequisite to be able to use this
+TELEMAC-MASCARET distribution package.
+
+Too ensure maximum performance you should make sure to map all available CPUs/cores into the Docker containers by using the respective Docker settings.
+
 # Custom configuration file
 
 The container is equipped with a TELEMAC-MASCARET Open MPI configuration configured and optimized for the Debian environment. You can run the container
