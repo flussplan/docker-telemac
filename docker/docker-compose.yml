@@ -7,4 +7,3 @@ services:
             - ./workdir:/opt/telemac-mascaret/latest/workdir
         stdin_open: true
         tty: true
-        cpu_count: 0

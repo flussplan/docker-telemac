@@ -5,7 +5,6 @@ services:
         image: flussplan/telemac:v8-latest
         stdin_open: true
         tty: true
-        cpu_count: 0
         volumes:
             - ./workdir:/opt/telemac-mascaret/latest/workdir
 
